@@ -12,15 +12,7 @@
       if using subRoutes
     -->
     <div class="layout-view">
-      <div class="logo-container non-selectable no-pointer-events">
-        <div class="logo" :style="position">
-          <img src="~assets/quasar-logo.png">
-          <p class="caption text-center">
-            <span class="desktop-only">Move your mouse.</span>
-            <span class="touch-only">Touch screen and move.</span>
-          </p>
-        </div>
-      </div>
+      <player></player>
     </div>
   </q-layout>
 </template>
@@ -30,8 +22,12 @@ var moveForce = 30
 var rotateForce = 40
 
 import { Utils } from 'quasar'
+import Player from './Player.vue'
 
 export default {
+  components: {
+    Player
+  },
   data () {
     return {
       moveX: 0,
