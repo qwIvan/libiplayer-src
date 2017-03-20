@@ -1,5 +1,5 @@
 <template>
-  <video-player :options="videoOptions"></video-player>
+  <video-player :options="videoOptions"/>
 </template>
 
 <script>
