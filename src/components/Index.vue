@@ -15,7 +15,7 @@
       if using subRoutes
     -->
     <div class="layout-view">
-      <player/>
+      <player id="player"/>
     </div>
   </q-layout>
 </template>
@@ -33,3 +33,8 @@ export default {
   }
 }
 </script>
+<style>
+  #player {
+    height: 100%;
+  }
+</style>

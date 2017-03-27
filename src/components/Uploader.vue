@@ -15,7 +15,7 @@
         labels: {
           add: '<i>cloud_upload</i>'
         },
-        url: 'http://libivan.com:8888/torrent',
+        url: 'http://libivan.com:8888/torrent'
       }
     },
     methods: {
@@ -35,9 +35,10 @@
 //        this.$refs.uploader.$refs.file.value = ''  # PR #484 resolve it
         Loading.hide()
       },
-      upload(name, response){
+      upload (name, response) {
         // PR #483
         console.log(response)
+        this.$emit('response', response)
       }
     }
   }
