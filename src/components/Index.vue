@@ -37,7 +37,7 @@
           url: 'http://libivan.com:8888{/hash}{/filename}',
           method: 'GET',
           params: {
-            hash: item.value,
+            hash: item.hash,
             filename: item.label
           }
         }).getUrl()

@@ -25,7 +25,8 @@
         Resource.File.get({hash: hash}).then(response => {
           done(response.body.file_list.map(file => ({
             label: file.filename,
-            value: hash
+            value: 'magnet:?xt=urn:btih:' + hash,
+            hash: hash
           })))
         })
       },
