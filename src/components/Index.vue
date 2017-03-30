@@ -2,10 +2,9 @@
   <q-layout>
     <div slot="header" class="toolbar">
       <img src="~assets/logo.png" class="avatar">
-      <q-toolbar-title :padding="0">
-      </q-toolbar-title>
-      <search @result="result" id="search" class="on-right"/>
-      <uploader/>
+      <q-toolbar-title :padding="0"/>
+      <search ref="search" @result="result" id="search" class="on-right"/>
+      <uploader @response="response"/>
     </div>
 
     <!--
@@ -32,6 +31,9 @@
       Search
     },
     methods: {
+      response (resp) {
+        this.$refs.search.trigger(resp)
+      },
       result (item) {
         this.videoUrl = new Request({
           url: 'http://libivan.com:8888{/hash}{/filename}',

@@ -36,8 +36,7 @@
       },
       upload (name, response) {
         // PR #483
-        console.log(response)
-        this.$emit('response', response)
+        this.$emit('response', JSON.parse(response))
       }
     }
   }
