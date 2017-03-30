@@ -1,7 +1,8 @@
 <template>
   <q-autocomplete ref="autocomplete" v-model="magnet" :min-characters="40" :max-results="Infinity" @search="search"
                   @selected="selected">
-    <q-search v-model="magnet" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral"/>
+    <q-search :value="focused? magnet : filename || magnet" @input="magnet = arguments[0]" @focus="focus"
+              @blur="focused = false" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral"/>
   </q-autocomplete>
 </template>
 
@@ -11,7 +12,9 @@
   export default {
     data () {
       return {
-        magnet: ''
+        magnet: '',
+        focused: false,
+        filename: '',
       }
     },
     methods: {
@@ -31,7 +34,12 @@
         })
       },
       selected (item) {
+        this.filename = item.label
         this.$emit('result', item)
+      },
+      focus () {
+        this.focused = true
+        this.$refs.autocomplete.trigger()
       }
     }
   }
