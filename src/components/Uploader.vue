@@ -1,7 +1,6 @@
 <template>
   <div>
-    <q-uploader name="torrent" ref="uploader" @upload="upload" @add="add" @start="start" @finish="finish"
-                :url="url"
+    <q-uploader name="torrent" ref="uploader" @upload="upload" @add="add" @start="start" @finish="finish" :url="url"
                 hide-upload-button :labels="labels"/>
     <q-tooltip max-height="500px" anchor="top left">上传torrent</q-tooltip>
   </div>
