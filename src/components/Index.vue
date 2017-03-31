@@ -7,11 +7,6 @@
       <uploader @response="response"/>
     </div>
 
-    <!--
-      Replace following "div" with
-      "<router-view class="layout-view">" component
-      if using subRoutes
-    -->
     <div class="layout-view">
       <player :videoUrl="videoUrl" id="player"/>
     </div>
@@ -40,18 +35,13 @@
           method: 'GET',
           params: {
             hash: item.hash,
-            filename: item.label
+            filename: item.filename
           }
         }).getUrl()
-//        Resource.File.get({
-//          hash: item.value,
-//          filename: item.label
-//        })
       }
     },
     data () {
       return {
-//        videoUrl: 'http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_H'
         videoUrl: ''
       }
     }

@@ -18,6 +18,15 @@
         triggered: false
       }
     },
+    created () {
+      let params = this.$route.params
+      if (params.hasOwnProperty('hash') && params.hasOwnProperty('file')) {
+        this.magnet = 'magnet:?xt=urn:btih:' + params.hash
+        this.filename = params.file
+        document.title = this.filename
+        this.$emit('result', this)
+      }
+    },
     computed: {
       hash () {
         let groups = /magnet:\?xt=urn:btih:([\da-f]{40})/.exec(this.magnet) || /([\da-f]{40})/.exec(this.magnet)
@@ -51,12 +60,20 @@
           done(response.body.file_list.map(file => ({
             label: file.filename,
             value: 'magnet:?xt=urn:btih:' + this.hash,
+            filename: file.filename,
             hash: this.hash
           })))
         })
       },
       selected (item) {
-        this.filename = item.label
+        this.filename = item.filename
+        this.$router.push({
+          name: 'player',
+          params: {
+            hash: item.hash,
+            file: item.filename
+          }
+        })
         this.$emit('result', item)
         document.title = this.filename
       },
