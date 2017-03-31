@@ -1,5 +1,5 @@
 <template>
-  <q-autocomplete @close="close" @open="open" ref="autocomplete" v-model="magnet" :min-characters="0"
+  <q-autocomplete @click.native="click" @close="close" @open="open" ref="autocomplete" v-model="magnet" :min-characters="0"
                   :max-results="Infinity" @search="search" @selected="selected">
     <q-search :value="(focused || triggered)? magnet : filename || magnet" @input="magnet = arguments[0]" @focus="focus"
               @blur="focused = false" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral"/>
@@ -80,6 +80,8 @@
       // PR #491
       focus () {
         this.focused = true
+      },
+      click  () {
         this.$refs.autocomplete.trigger()
       }
     }
