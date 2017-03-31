@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-runtime": "^6.0.0",
     "fastclick": "^1.0.6",
     "material-design-icons": "^3.0.1",
@@ -17,8 +18,7 @@
     "quasar-framework": "^0.13.4",
     "roboto-fontface": "^0.7.0",
     "vue": "^2.2.2",
-    "vue-resource": "^1.2.1",
-    "vue-router": "^2.0.0",
+    "vue-router": "^2.3.1",
     "vue-video-player": "^2.5.0"
   },
   "devDependencies": {

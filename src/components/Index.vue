@@ -17,7 +17,6 @@
   import Player from './Player.vue'
   import Uploader from './Uploader.vue'
   import Search from './Search.vue'
-  import Request from 'vue-resource/src/http/request'
 
   export default {
     components: {
@@ -30,14 +29,7 @@
         this.$refs.search.trigger(resp)
       },
       result (item) {
-        this.videoUrl = new Request({
-          url: 'http://libivan.com:8888{/hash}{/filename}',
-          method: 'GET',
-          params: {
-            hash: item.hash,
-            filename: item.filename
-          }
-        }).getUrl()
+        this.videoUrl = `http://libivan.com:8888/${item.hash}/${item.filename}`
       }
     },
     data () {

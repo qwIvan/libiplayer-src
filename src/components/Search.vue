@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import * as Resource from '../resource'
+  import axios from 'axios'
 
   export default {
     data () {
@@ -56,8 +56,8 @@
           done([])
           return
         }
-        Resource.File.get({hash: this.hash}).then(response => {
-          done(response.body.file_list.map(file => ({
+        axios.get('http://libivan.com:8888/' + this.hash).then(resp => {
+          done(resp.data.file_list.map(file => ({
             label: file.filename,
             value: 'magnet:?xt=urn:btih:' + this.hash,
             filename: file.filename,
