@@ -58,6 +58,7 @@
       selected (item) {
         this.filename = item.label
         this.$emit('result', item)
+        document.title = this.filename
       },
       // PR #491
       focus () {
