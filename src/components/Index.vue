@@ -1,40 +1,57 @@
 <template>
   <q-layout>
-    <div slot="header" class="toolbar">
-      <img src="~assets/logo.png" class="avatar">
-      <q-toolbar-title :padding="0"/>
-      <search ref="search" @result="result" id="search" class="on-right"/>
-      <uploader @response="response"/>
-    </div>
+    <navbar slot="header" :filename="filename" v-model="edit_hash" class="toolbar"/>
 
     <div class="layout-view">
-      <player :videoUrl="videoUrl" id="player"/>
+      <player v-if="play_hash && filename" :videoUrl="videoUrl" id="player"/>
     </div>
   </q-layout>
 </template>
 
 <script>
   import Player from './Player.vue'
-  import Uploader from './Uploader.vue'
-  import Search from './Search.vue'
+  import Navbar from './Navbar.vue'
+  import {api} from '../config'
+
+  function init (vm, route) {
+    let file = ''
+    let hash = ''
+    let title = 'LibiPlayer'
+    if (route.name === 'player') {
+      file = route.params.file
+      hash = route.params.hash
+      title = file
+    }
+    vm.filename = file
+    vm.edit_hash = hash
+    vm.play_hash = hash
+    document.title = title
+    return true
+  }
 
   export default {
+    beforeRouteEnter (to, from, next) {
+      next(vm => init(vm, to))
+    },
+    beforeRouteUpdate (to, from, next) {
+      init(this, to)
+      next(true)
+    },
+    computed: {
+      videoUrl () {
+        if (!this.play_hash || !this.filename) return []
+        return `${api}/${this.play_hash}/${this.filename}`
+      }
+    },
     components: {
       Player,
-      Uploader,
-      Search
-    },
-    methods: {
-      response (resp) {
-        this.$refs.search.trigger(resp)
-      },
-      result (item) {
-        this.videoUrl = `http://libivan.com:8888/${item.hash}/${item.filename}`
-      }
+      Navbar
     },
     data () {
       return {
-        videoUrl: ''
+        edit_hash: '',
+        play_hash: '',
+        filename: ''
       }
     }
   }
@@ -43,9 +60,5 @@
 <style>
   #player {
     height: 100%;
-  }
-
-  #search {
-    width: 100%;
   }
 </style>

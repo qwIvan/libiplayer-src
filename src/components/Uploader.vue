@@ -1,20 +1,22 @@
 <template>
   <div>
     <q-uploader name="torrent" ref="uploader" @upload="upload" @add="add" @start="start" @finish="finish" :url="url"
-                hide-upload-button :labels="labels"/>
+                hide-upload-button :labels="labels" @fail="fail"/>
     <q-tooltip max-height="500px" anchor="top left">上传torrent</q-tooltip>
   </div>
 </template>
 
 <script>
-  import {Loading} from 'quasar'
+  import {Loading, Dialog} from 'quasar'
+  import {api} from '../config'
+
   export default {
     data () {
       return {
         labels: {
           add: '<i>cloud_upload</i>'
         },
-        url: 'http://libivan.com:8888/torrent'
+        url: `${api}/torrent`
       }
     },
     methods: {
@@ -29,6 +31,15 @@
           spinnerSize: 250,
           spinner: 'hourglass'
         })
+      },
+      // PR #496
+      fail () {
+        Loading.hide()
+        Dialog.create({
+          title: '上传失败!',
+          message: '请确认上传的是torrent文件'
+        })
+        this.$refs.uploader.files = []
       },
       finish () {
 //        this.$refs.uploader.$refs.file.value = ''  # PR #484 resolve it
