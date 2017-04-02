@@ -14,17 +14,18 @@
   import {api} from '../config'
 
   function init (vm, route) {
-    let file = ''
-    let hash = ''
-    let title = 'LibiPlayer'
     if (route.name === 'player') {
-      file = route.params.filename
-      hash = route.params.hash
-      title = file
+      vm.filename = route.params.filename
+      vm.hash = route.params.hash
     }
-    vm.filename = file
-    vm.hash = hash
-    document.title = title
+    else if (route.name === 'list') {
+      vm.filename = ''
+      vm.hash = route.params.hash
+    }
+    else {
+      vm.filename = ''
+      vm.hash = ''
+    }
     return true
   }
 
@@ -50,6 +51,11 @@
       return {
         hash: '',
         filename: ''
+      }
+    },
+    watch: {
+      filename (val) {
+        document.title = val
       }
     }
   }
