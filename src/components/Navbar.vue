@@ -3,7 +3,7 @@
     <router-link to="/">
       <img src="~assets/logo.png" class="avatar">
     </router-link>
-    <q-autocomplete class="on-right" id="autocomplete" ref="autocomplete" :value="hash" :delay="0" :min-characters="0"
+    <q-autocomplete class="on-right" id="autocomplete" ref="autocomplete" :value="hash || value" :delay="0" :min-characters="0"
                     :max-results="Infinity" @search="search" @selected="selected" @close="close" @open="open">
       <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input"
                 @focus="focus" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
@@ -64,7 +64,7 @@
       hash: {
         get () {
           let groups = /([\da-f]{40})/.exec(this.magnet)
-          if (!groups) return this.value
+          if (!groups) return ''
           return groups[0]
         },
         set (val) {
@@ -103,12 +103,12 @@
       search (hash, done) {
         if (!hash) return []
         if (this.resp.hash_hex === hash) {
-          done(resp2popover(this.resp.file_list, this.hash))
+          done(resp2popover(this.resp.file_list, hash))
           return
         }
         axios.get(`${api}/${hash}`).then(resp => {
-          done(resp2popover(resp.data.file_list, this.hash))
           this.resp = resp.data
+          done(resp2popover(this.resp.file_list, hash))
         })
       },
       selected (item) {
