@@ -118,7 +118,7 @@
         this.focused = true
         this.$refs.autocomplete.trigger()
         let vm = this
-        setTimeout(()=>vm.$refs.search.$el.querySelector('input').select(),0)
+        setTimeout(() => vm.$refs.search.$el.querySelector('input').select(), 0)
       },
       blur () {
         this.focused = false
@@ -131,6 +131,7 @@
   #autocomplete {
     width: 100%
   }
+
   #autocomplete ::selection {
     background-color: #027be3;
   }
