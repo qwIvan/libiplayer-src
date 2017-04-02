@@ -41,6 +41,16 @@
         default: ''
       }
     },
+    watch: {
+      opened (val) {
+        if (val) {
+          setTimeout(() => this.$refs.autocomplete.trigger(), 0)
+        }
+        else {
+          this.$refs.autocomplete.close()
+        }
+      }
+    },
     data () {
       return {
         magnet: '',
@@ -48,8 +58,8 @@
         resp: {
           hash_hex: '',
           file_list: []
-        }
-//        triggered: false
+        },
+        opened: false
       }
     },
     computed: {
@@ -61,7 +71,6 @@
         },
         set (val) {
           this.magnet = `magnet:?xt=urn:btih:${val}`
-//          this.$refs.autocomplete.trigger()
         }
       }
     },
@@ -71,7 +80,7 @@
       },
       handleClick (e) {
         if (this.$refs.search.$el.querySelector('input') !== e.target) {
-          this.$refs.autocomplete.$refs.popover.close()
+          this.opened = false
         }
         else {
           e.stopPropagation()
@@ -80,17 +89,17 @@
       response (resp) {
         this.resp = resp
         this.hash = resp.hash_hex
-        setTimeout(() => this.$refs.search.focus(), 0)
+        this.opened = true
       },
       // PR #492
       open () {
         document.removeEventListener('click', this.$refs.autocomplete.$refs.popover.close, true)
         document.addEventListener('click', this.handleClick, true)
-//        this.triggered = true
+        this.opened = true
       },
       close () {
         document.removeEventListener('click', this.handleClick, true)
-//        this.triggered = false
+        this.opened = false
       },
       search (hash, done) {
         if (!hash) return []
@@ -114,9 +123,8 @@
       },
       // PR #491
       focus () {
-//        alert('focus')
         this.focused = true
-        this.$refs.autocomplete.trigger()
+        this.opened = true
         let vm = this
         setTimeout(() => vm.$refs.search.$el.querySelector('input').select(), 0)
       },
