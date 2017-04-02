@@ -48,6 +48,9 @@
         else {
           this.$refs.autocomplete.close()
         }
+      },
+      value (val) {
+        this.hash = val
       }
     },
     data () {
@@ -93,7 +96,6 @@
       open () {
         document.removeEventListener('click', this.$refs.autocomplete.$refs.popover.close, true)
         document.addEventListener('click', this.handleClick, true)
-        this.hash = this.hash
         this.opened = true
       },
       close () {
