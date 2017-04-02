@@ -17,6 +17,7 @@
     if (route.name === 'player') {
       vm.filename = route.params.filename
       vm.hash = route.params.hash
+      vm.$refs.navbar.opened = false
     }
     else if (route.name === 'list') {
       vm.filename = ''
@@ -26,6 +27,7 @@
     else {
       vm.filename = ''
       vm.hash = ''
+      vm.$refs.navbar.opened = false
     }
     return true
   }
