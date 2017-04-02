@@ -108,7 +108,7 @@
           name: 'player',
           params: {
             hash: item.hash,
-            file: item.filename
+            filename: item.filename
           }
         })
       },

@@ -18,7 +18,7 @@
     let hash = ''
     let title = 'LibiPlayer'
     if (route.name === 'player') {
-      file = route.params.file
+      file = route.params.filename
       hash = route.params.hash
       title = file
     }
