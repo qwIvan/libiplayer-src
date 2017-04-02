@@ -5,9 +5,8 @@
     </router-link>
     <q-autocomplete class="on-right" id="autocomplete" ref="autocomplete" :value="hash" :delay="0" :min-characters="0"
                     :max-results="Infinity" @search="search" @selected="selected" @close="close" @open="open">
-      <q-search @keydown.native.stop.capture :value="focused ? magnet : filename || magnet" @input="input"
-                @focus="focus" @blur="blur" placeholder="magnet:?xt=urn:btih:..." class="primary"
-                icon="sentiment_neutral" ref="search"/>
+      <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input"
+                @focus="focus" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
     </q-autocomplete>
     <uploader @response="response" class="on-right"/>
   </div>
@@ -54,7 +53,6 @@
     data () {
       return {
         magnet: '',
-        focused: false,
         resp: {
           hash_hex: '',
           file_list: []
@@ -123,12 +121,8 @@
       },
       // PR #491
       focus () {
-        this.focused = true
         this.opened = true
         setTimeout(() => this.$refs.search.$el.querySelector('input').select(), 0)
-      },
-      blur () {
-        this.focused = false
       }
     }
   }
