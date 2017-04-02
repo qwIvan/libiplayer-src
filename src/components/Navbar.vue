@@ -68,7 +68,7 @@
           return groups[0]
         },
         set (val) {
-          this.magnet = `magnet:?xt=urn:btih:${val}`
+          this.magnet = val ? `magnet:?xt=urn:btih:${val}` : ''
         }
       }
     },
@@ -93,6 +93,7 @@
       open () {
         document.removeEventListener('click', this.$refs.autocomplete.$refs.popover.close, true)
         document.addEventListener('click', this.handleClick, true)
+        this.hash = this.hash
         this.opened = true
       },
       close () {

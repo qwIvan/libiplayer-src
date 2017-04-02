@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <navbar slot="header" :filename="filename" :value="hash" class="toolbar"/>
+    <navbar ref="navbar" slot="header" :filename="filename" :value="hash" class="toolbar"/>
 
     <div class="layout-view">
       <player v-if="hash && filename" :videoUrl="videoUrl" id="player"/>
@@ -21,6 +21,7 @@
     else if (route.name === 'list') {
       vm.filename = ''
       vm.hash = route.params.hash
+      vm.$refs.navbar.opened = true
     }
     else {
       vm.filename = ''

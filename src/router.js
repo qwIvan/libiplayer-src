@@ -22,6 +22,7 @@ export default new VueRouter({
 
   routes: [
     { path: '/:hash/:filename', name: 'player', component: load('Index') },
+    { path: '/:hash', name: 'list', component: load('Index') },
     { path: '/', component: load('Index') }, // Default
     { path: '*', component: load('Error404') } // Not found
   ]
