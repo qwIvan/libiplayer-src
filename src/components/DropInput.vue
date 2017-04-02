@@ -1,19 +1,12 @@
 <template>
-  <div slot="header" class="toolbar">
-    <router-link to="/">
-      <img src="~assets/logo.png" class="avatar">
-    </router-link>
-    <q-autocomplete class="on-right" id="autocomplete" ref="autocomplete" :value="hash || value" :delay="0" :min-characters="0"
-                    :max-results="Infinity" @search="search" @selected="selected" @close="close" @open="open">
-      <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input"
-                @focus="focus" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
-    </q-autocomplete>
-    <uploader @response="response" class="on-right"/>
-  </div>
+  <q-autocomplete  id="autocomplete" ref="autocomplete" :value="hash || value" :delay="0" :min-characters="0"
+                  :max-results="Infinity" @search="search" @selected="selected" @close="close" @open="open">
+    <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input"
+              @focus="focus" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
+  </q-autocomplete>
 </template>
 
 <script>
-  import Uploader from './Uploader.vue'
   import axios from 'axios'
   import {api} from '../config'
 
@@ -27,9 +20,6 @@
   }
 
   export default {
-    components: {
-      Uploader
-    },
     props: {
       filename: {
         type: String,
@@ -88,11 +78,6 @@
         else {
           e.stopPropagation()
         }
-      },
-      response (resp) {
-        this.resp = resp
-        this.hash = resp.hash_hex
-        this.opened = true
       },
       // PR #492
       open () {
