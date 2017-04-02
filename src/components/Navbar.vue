@@ -9,7 +9,7 @@
                 @focus="focus" @blur="blur" placeholder="magnet:?xt=urn:btih:..." class="primary"
                 icon="sentiment_neutral" ref="search"/>
     </q-autocomplete>
-    <uploader @response="response"/>
+    <uploader @response="response" class="on-right"/>
   </div>
 </template>
 
@@ -117,6 +117,8 @@
 //        alert('focus')
         this.focused = true
         this.$refs.autocomplete.trigger()
+        let vm = this
+        setTimeout(()=>vm.$refs.search.$el.querySelector('input').select(),0)
       },
       blur () {
         this.focused = false
@@ -128,5 +130,8 @@
 <style>
   #autocomplete {
     width: 100%
+  }
+  #autocomplete ::selection {
+    background-color: #027be3;
   }
 </style>
