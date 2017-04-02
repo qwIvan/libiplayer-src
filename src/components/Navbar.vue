@@ -125,8 +125,7 @@
       focus () {
         this.focused = true
         this.opened = true
-        let vm = this
-        setTimeout(() => vm.$refs.search.$el.querySelector('input').select(), 0)
+        setTimeout(() => this.$refs.search.$el.querySelector('input').select(), 0)
       },
       blur () {
         this.focused = false
