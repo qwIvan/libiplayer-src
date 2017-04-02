@@ -1,9 +1,9 @@
 <template>
   <q-layout>
-    <navbar slot="header" :filename="filename" v-model="edit_hash" class="toolbar"/>
+    <navbar slot="header" :filename="filename" :value="hash" class="toolbar"/>
 
     <div class="layout-view">
-      <player v-if="play_hash && filename" :videoUrl="videoUrl" id="player"/>
+      <player v-if="hash && filename" :videoUrl="videoUrl" id="player"/>
     </div>
   </q-layout>
 </template>
@@ -23,8 +23,7 @@
       title = file
     }
     vm.filename = file
-    vm.edit_hash = hash
-    vm.play_hash = hash
+    vm.hash = hash
     document.title = title
     return true
   }
@@ -39,8 +38,8 @@
     },
     computed: {
       videoUrl () {
-        if (!this.play_hash || !this.filename) return []
-        return `${api}/${this.play_hash}/${this.filename}`
+        if (!this.hash || !this.filename) return []
+        return `${api}/${this.hash}/${this.filename}`
       }
     },
     components: {
@@ -49,8 +48,7 @@
     },
     data () {
       return {
-        edit_hash: '',
-        play_hash: '',
+        hash: '',
         filename: ''
       }
     }
