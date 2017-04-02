@@ -3,7 +3,7 @@
     <navbar ref="navbar" slot="header" :filename="filename" :value="hash" class="toolbar"/>
 
     <div class="layout-view">
-      <player v-if="hash && filename" :videoUrl="videoUrl" id="player"/>
+      <player v-if="videoUrl" :videoUrl="videoUrl" id="player"/>
     </div>
   </q-layout>
 </template>
@@ -42,7 +42,7 @@
     },
     computed: {
       videoUrl () {
-        if (!this.hash || !this.filename) return []
+        if (!this.hash || !this.filename) return ''
         return `${api}/${this.hash}/${this.filename}`
       }
     },
