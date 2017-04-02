@@ -44,9 +44,11 @@
       opened (val) {
         if (val) {
           setTimeout(() => this.$refs.autocomplete.trigger(), 0)
+          this.$refs.search.$el.querySelector('input').focus()
         }
         else {
           this.$refs.autocomplete.close()
+          this.$refs.search.$el.querySelector('input').blur()
         }
       },
       value (val) {
