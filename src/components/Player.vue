@@ -19,7 +19,9 @@
           sources: this.videoUrl ? [{
 //            type: 'video/mp4',
             src: this.videoUrl
-          }] : [],
+          }] : {
+              length: true
+          },
           autoplay: true,
           playbackRates: [0.5, 1, 2, 4, 8]
         }
