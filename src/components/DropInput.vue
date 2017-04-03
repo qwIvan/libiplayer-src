@@ -71,7 +71,7 @@
       },
       hash: {
         get () {
-          let groups = /([\da-f]{40})/.exec(this.magnet)
+          let groups = /([\da-fA-F]{40})/.exec(this.magnet)
           if (!groups) return ''
           return groups[0]
         },
