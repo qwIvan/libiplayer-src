@@ -9,7 +9,7 @@
     </div>
 
     <div class="layout-view">
-      <player v-if="videoUrl" :videoUrl="videoUrl" id="player"/>
+      <player :videoUrl="videoUrl" id="player"/>
     </div>
   </q-layout>
 </template>
