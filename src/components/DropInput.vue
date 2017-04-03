@@ -1,8 +1,8 @@
 <template>
-  <q-autocomplete  id="autocomplete" ref="autocomplete" :value="hash || value" :delay="0" :min-characters="0"
+  <q-autocomplete id="autocomplete" ref="autocomplete" :value="hash || value" :delay="0" :min-characters="0"
                   :max-results="Infinity" @search="search" @selected="selected" @close="close" @open="open">
-    <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input"
-              @focus="focus" placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
+    <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input" @focus="focus"
+              placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
   </q-autocomplete>
 </template>
 
@@ -31,16 +31,6 @@
       }
     },
     watch: {
-      opened (val) {
-        if (val) {
-          setTimeout(() => this.$refs.autocomplete.trigger(), 0)
-          this.$refs.search.$el.querySelector('input').focus()
-        }
-        else {
-          this.$refs.autocomplete.close()
-          this.$refs.search.$el.querySelector('input').blur()
-        }
-      },
       value (val) {
         this.hash = val
       }
@@ -52,10 +42,28 @@
           hash_hex: '',
           file_list: []
         },
-        opened: false
+        opened_: false
       }
     },
     computed: {
+      opened: {
+        get () {
+          return this.opened_
+        },
+        set (val) {
+          this.opened_ = val
+          if (val) {
+            setTimeout(() => this.$refs.autocomplete.trigger(), 0)
+            this.$refs.search.$el.querySelector('input').focus()
+            this.$refs.search.$el.querySelector('button.q-search-clear').classList.remove('hidden')
+          }
+          else {
+            setTimeout(() => this.$refs.search.$el.querySelector('button.q-search-clear').classList.add('hidden'), 0)
+            this.$refs.autocomplete.close()
+            this.$refs.search.$el.querySelector('input').blur()
+          }
+        }
+      },
       hash: {
         get () {
           let groups = /([\da-f]{40})/.exec(this.magnet)
@@ -72,11 +80,16 @@
         this.magnet = val
       },
       handleClick (e) {
-        if (this.$refs.search.$el.querySelector('input') !== e.target) {
-          this.opened = false
+        if (this.$refs.search.$el.querySelector('input') === e.target) {
+          e.stopPropagation()
+        }
+        else if (this.$refs.search.$el.querySelector('button.q-search-clear i') === e.target) {
+          e.stopPropagation()
+          this.magnet = ''
+          this.$refs.search.$el.querySelector('input').focus()
         }
         else {
-          e.stopPropagation()
+          this.opened = false
         }
       },
       // PR #492
