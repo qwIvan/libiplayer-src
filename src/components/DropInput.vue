@@ -1,8 +1,8 @@
 <template>
   <q-autocomplete id="autocomplete" ref="autocomplete" :value="hash || value" :delay="0" :min-characters="0"
                   :max-results="Infinity" @search="search" @selected="selected" @close="close" @open="open">
-    <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input" @focus="focus"
-              placeholder="magnet:?xt=urn:btih:..." class="primary" icon="sentiment_neutral" ref="search"/>
+    <q-search @keydown.native.stop.capture :value="opened ? magnet : filename || magnet" @input="input"
+              @focus="focus" placeholder="magnet:?xt=urn:btih:..." class="primary" :icon="face" ref="search"/>
   </q-autocomplete>
 </template>
 
@@ -46,6 +46,9 @@
       }
     },
     computed: {
+      face () {
+        return 'sentiment_neutral'
+      },
       opened: {
         get () {
           return this.opened_
@@ -55,10 +58,12 @@
           if (val) {
             setTimeout(() => this.$refs.autocomplete.trigger(), 0)
             this.$refs.search.$el.querySelector('input').focus()
-            this.$refs.search.$el.querySelector('button.q-search-clear').classList.remove('hidden')
+            this.$refs.search.$el.querySelector('button.q-search-clear').style.display = ''
           }
           else {
-            setTimeout(() => this.$refs.search.$el.querySelector('button.q-search-clear').classList.add('hidden'), 0)
+            setTimeout(() => {
+              this.$refs.search.$el.querySelector('button.q-search-clear').style.display = 'none'
+            }, 0)
             this.$refs.autocomplete.close()
             this.$refs.search.$el.querySelector('input').blur()
           }
