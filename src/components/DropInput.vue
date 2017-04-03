@@ -47,7 +47,7 @@
     },
     computed: {
       face () {
-        return 'sentiment_neutral'
+        return this.hash && this.opened ? 'mood' : 'sentiment_neutral'
       },
       opened: {
         get () {
@@ -76,6 +76,7 @@
           return groups[0]
         },
         set (val) {
+          if (val === this.hash) return val
           this.magnet = val ? `magnet:?xt=urn:btih:${val}` : ''
         }
       }
