@@ -18,7 +18,7 @@
   import Player from './Player.vue'
   import DropInput from './DropInput.vue'
   import Uploader from './Uploader.vue'
-  import {api} from '../config'
+  import {playApi} from '../config'
 
   function init (vm, route) {
     if (route.name === 'player') {
@@ -50,7 +50,7 @@
     computed: {
       videoUrl () {
         if (!this.hash || !this.filename) return ''
-        return `${api}/${this.hash}/${this.filename}`
+       return `${playApi}/${this.hash}/${this.filename}`
       }
     },
     components: {

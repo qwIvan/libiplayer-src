@@ -8,7 +8,7 @@
 
 <script>
   import {Loading, Dialog} from 'quasar'
-  import {api} from '../config'
+  import {jsonApi} from '../config'
 
   export default {
     data () {
@@ -16,7 +16,7 @@
         labels: {
           add: '<i>cloud_upload</i>'
         },
-        url: `${api}/torrent`
+        url: `${jsonApi}/torrent`
       }
     },
     methods: {

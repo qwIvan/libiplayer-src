@@ -8,7 +8,7 @@
 
 <script>
   import axios from 'axios'
-  import {api} from '../config'
+  import {jsonApi} from '../config'
 
   function resp2popover (fileList, hash) {
     return fileList.map(file => ({
@@ -114,7 +114,7 @@
           done(resp2popover(this.resp.file_list, hash))
           return
         }
-        axios.get(`${api}/${hash}`).then(resp => {
+        axios.get(`${jsonApi}/${hash}`).then(resp => {
           this.resp = resp.data
           done(resp2popover(this.resp.file_list, hash))
         })

@@ -54,12 +54,12 @@ module.exports = {
  * proxyTable example:
  *
    proxyTable: {
-      // proxy all requests starting with /api
-      '/api': {
+      // proxy all requests starting with /playApi
+      '/playApi': {
         target: 'https://some.address.com/api',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/playApi': ''
         }
       }
     }
